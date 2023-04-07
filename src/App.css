@@ -36,3 +36,14 @@
     transform: rotate(360deg);
   }
 }
+
+button {}
+input {}
+label {}
+
+.largeButton {
+  border: 1px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
