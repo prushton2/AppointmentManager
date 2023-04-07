@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 
 import MakeAppointment from "./MakeAppointment"
-import LoginRedirect from "./LoginRedirect"
+import Login from "./Login"
 
 export default function Header() {
 
@@ -21,7 +21,7 @@ export default function Header() {
 
             <TabPanel><a>Home</a></TabPanel>
             <TabPanel><MakeAppointment /></TabPanel>
-            <TabPanel><LoginRedirect /></TabPanel>
+            <TabPanel><Login /></TabPanel>
         </Tabs>
     </div>;
 }
