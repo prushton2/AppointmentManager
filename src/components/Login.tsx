@@ -8,11 +8,11 @@ export default function Login() {
     const [name, setName] = useState("");
     const [pass, setPass] = useState("");
     const [response, setResponse] = useState(<label />);
-
+    
 
     const login = async() => {
         let res = await Account.Login(name, pass);
-        
+        console.log(res)
         setResponse(<label className="loginErrorLabel">Incorrect Login Information</label>)
     }
 
