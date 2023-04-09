@@ -2,6 +2,7 @@ import "./Login.css"
 import { useEffect, useState } from "react";
 
 import { Account } from "../lib/ajax";
+import { AxiosError } from "axios";
 
 export default function Login() {
 
@@ -14,16 +15,19 @@ export default function Login() {
         let res;
         try {
             res = await Account.Login(name, pass);
+            console.log(res);
             setResponse(<label className="loginSuccessLabel">Login Successful</label>);
+            setTimeout(() => {window.location.href="/account"}, 1000);
 
-        } catch {
+        } catch (e) {
+            console.log((e as AxiosError).response?.data);
             setResponse(<label className="loginErrorLabel">Incorrect Login Information</label>)
         }
 
     }
 
     useEffect(() => {
-
+        
     }, [])
 
 
