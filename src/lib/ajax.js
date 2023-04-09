@@ -2,7 +2,11 @@ import axios from 'axios';
 
 export const Account = {
     Login: async (name, pass) => {
-        let response = axios.post(`${process.env.REACT_APP_BACKEND_URL}/account/login`, {name: name, pass: pass});
-        return (await response).data;
+        const url = `${process.env.REACT_APP_BACKEND_URL}/account/login`
+        const body = {"name": name, "pass": pass}
+        const config = {}
+        
+        const response = await axios.post(url, body, config);
+        return response.data;   
     }
 }
