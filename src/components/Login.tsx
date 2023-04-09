@@ -27,7 +27,17 @@ export default function Login() {
     }
 
     useEffect(() => {
-        
+
+        const init = async() => {
+            try {
+                let res = await Account.getUserInfo();
+                window.location.href="/account";
+            } catch (e) {
+                console.log((e as AxiosError).response?.data);
+            }
+        }
+
+        init()
     }, [])
 
 
