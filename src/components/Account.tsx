@@ -1,3 +1,4 @@
+import "../App.css"
 import "./Header.css"
 import {Tab, TabList, TabPanel, Tabs} from 'react-tabs';
 import { useEffect, useState } from "react";
@@ -38,6 +39,12 @@ export default function AccountPage() {
             permission: "permissions.users"
         },
     ]
+
+    const logout = async() => {
+        await Account.Logout();
+        window.location.href="/";
+    }
+
     useEffect(() => { //get the allowed tabs
         
         const init = async() => {
@@ -45,12 +52,8 @@ export default function AccountPage() {
         
             let   viewableTabs: JSX.Element[] = [];
             let viewablePanels: JSX.Element[] = [];
-
-            
-            console.log(user.response.permissions);
             
             for(let i in allTabs) {
-                console.log("AA");
                 for(let j in user.response.permissions) {
                     if(user.response.permissions[j].startsWith(allTabs[i].permission) || user.response.permissions[j] === "permissions.*") {
                         viewableTabs[i] = (<Tab key={i}>{allTabs[i].name}</Tab>);
@@ -60,15 +63,6 @@ export default function AccountPage() {
                 }
             }
 
-
-            // viewableTabs = viewableTabs.filter(function(item, pos, self) {
-            //     return self.indexOf(item) == pos;
-            // })
-
-            // viewablePanels = viewablePanels.filter(function(item, pos) {
-            //     return viewablePanels.indexOf(item) == pos;
-            // })
-
             setTabTitles(viewableTabs);
             setTabPanels(viewablePanels);
         }
@@ -77,6 +71,7 @@ export default function AccountPage() {
 
 
     return <div className="header">
+        <button className="largeButton" style={{position: 'absolute', top: "10px", right: "10px", fontSize: "12px"}} onClick={() => {logout()}}> {"Log Out"} </button>
         <h1 onClick={() => {window.location.href="/"}}>
             Appointment Manager
             <div style={{position: 'absolute', top: "10px", left: "10px", fontSize: "24px"}}> {"<-"} </div>

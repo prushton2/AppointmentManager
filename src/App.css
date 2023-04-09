@@ -37,7 +37,11 @@
   }
 }
 
-button {}
+button {
+  background-color: #38343c;
+  color: white;
+  border: 1px;
+}
 label {}
 
 input {

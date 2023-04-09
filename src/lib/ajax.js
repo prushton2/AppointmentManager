@@ -17,5 +17,12 @@ export const Account = {
         
         const response = await axios.get(url, cookieConfig);
         return (response.data);
+    },
+
+    Logout: async () => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/account/logout`
+        
+        const response = await axios.get(url, cookieConfig);
+        return (response.data);
     }
 }
