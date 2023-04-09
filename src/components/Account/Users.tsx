@@ -16,7 +16,12 @@ const UserElement = ({user}: {user: User}) => {
     }, [cur_user])
 
     const saveUser = async() => {
-        
+        await Users.setUser(def_user.id, {
+            name: def_user.name,
+            email: def_user.email,
+            permissions: def_user.permissions,
+        })
+        setDef_user(cur_user);
     }
 
     return <div className="userBox">
@@ -70,7 +75,7 @@ export default function UsersPage() {
     useEffect(() => {
         let newUsersHTML: JSX.Element[] = [];
         for(let i in allUsers) {
-            newUsersHTML[i] = <UserElement user={allUsers[i]} />
+            newUsersHTML[i] = <UserElement key={i} user={allUsers[i]} />
         }
 
         setUsersHTML(newUsersHTML);
