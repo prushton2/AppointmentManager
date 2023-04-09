@@ -38,17 +38,33 @@
 }
 
 :root {
-  --dark: #1e1e1e;
+  --bg: #1e1e1e;
+  --dark: #2A2A2B;
   --medium: #38343c;
   --light: #48444c;
+  --highlight: #58545c;
 }
 
 button {
-  background-color: var(--medium);
+  background-color: var(--light);
   color: white;
   border: 1px;
+  padding: 3px;
 }
-label {}
+
+button:hover {
+  background-color: var(--highlight);
+}
+button:active {
+  background-color: var(--dark);
+}
+
+textarea {
+  color: white;
+  border: 1px solid var(--medium);
+  background-color: var(--light);
+}
+
 
 input {
   color: white;

@@ -1,0 +1,31 @@
+.userBox {
+    position: relative;
+    align-items: center;
+    margin: auto;
+    text-align: left;
+    width: 30%;
+    background-color: var(--dark);
+}
+
+table td {
+    vertical-align: top;
+}
+
+textarea {
+    width: 15em;
+    height: 10em;
+}
+
+.saveBtn {
+    position:absolute;
+    top: 3px;
+    right: 3px;
+}
+
+.saveBtn.disabled {
+    background-color: var(--dark);
+}
+
+.saveBtn.disabled:hover {
+    background-color: var(--dark);
+}

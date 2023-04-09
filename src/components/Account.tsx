@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import {Account} from "../lib/ajax"
 import { TabPanelInfo } from "../models/TabPanelInfo";
 
+import Users from "./Account/Users";
+
 export default function AccountPage() {
 
     const [selectedTab, setSelectedTab] = useState(0);
@@ -35,7 +37,7 @@ export default function AccountPage() {
         },
         {
             name: "Users & Permissions",
-            JSX: <a>Users & Permissions</a>,
+            JSX: <Users />,
             permission: "permissions.users"
         },
     ]
