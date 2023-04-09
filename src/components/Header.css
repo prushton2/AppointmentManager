@@ -14,18 +14,18 @@
 }
 
 .react-tabs__tab--selected {
-    background-color: #38343c;
+    background-color: var(--medium);
     border: 1px solid transparent;
 }
 
 .react-tabs__tab-list {
     margin: 0;
-    border-bottom: 1px solid #38343c;
+    border-bottom: 1px solid var(--medium);
 }
 
 .react-tabs__tab-panel {
 }
 
 .react-tabs__tab-panel--selected {
-	border-top: 1px solid #252526;
+	border-top: 1px solid var(--medium);
 }

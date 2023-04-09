@@ -37,8 +37,14 @@
   }
 }
 
+:root {
+  --dark: #1e1e1e;
+  --medium: #38343c;
+  --light: #48444c;
+}
+
 button {
-  background-color: #38343c;
+  background-color: var(--medium);
   color: white;
   border: 1px;
 }
@@ -46,12 +52,12 @@ label {}
 
 input {
   color: white;
-  border: #48444c;
-  background-color: #48444c;
+  border: 1px solid var(--medium);
+  background-color: var(--light);
 }
 
 .largeButton {
-  background-color: #38343c;
+  background-color: var(--medium);
   color: white;
   border: 1px;
   padding: 10px;
@@ -60,6 +66,6 @@ input {
 }
 
 .largeButton:hover {
-  background-color: #48444c;
+  background-color: var(--light);
 }
 

@@ -26,3 +26,12 @@ export const Account = {
         return (response.data);
     }
 }
+
+export const Users = {
+    getUsers: async() => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/users/get`
+        
+        const response = await axios.get(url, cookieConfig);
+        return response.data;
+    }
+}
