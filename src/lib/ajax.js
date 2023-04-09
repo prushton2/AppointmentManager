@@ -33,5 +33,13 @@ export const Users = {
         
         const response = await axios.get(url, cookieConfig);
         return response.data;
+    },
+
+    setUser: async(id, newProps) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/users/set`;
+        const body = {id: id, newProps: newProps}
+
+        const response = await axios.patch(url, body, cookieConfig);
+        return response.data;
     }
 }

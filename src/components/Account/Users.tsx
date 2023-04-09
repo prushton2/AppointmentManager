@@ -15,8 +15,12 @@ const UserElement = ({user}: {user: User}) => {
         setIsChanged(JSON.stringify(cur_user) === JSON.stringify(def_user))
     }, [cur_user])
 
+    const saveUser = async() => {
+        
+    }
+
     return <div className="userBox">
-        <button onClick={() => {}} className={`saveBtn ${!isChanged ? "" : "disabled"}`}>Save</button>
+        <button onClick={() => {saveUser()}} className={`saveBtn ${!isChanged ? "" : "disabled"}`}>Save</button>
         <br />
         <table>
         <tbody>
@@ -24,10 +28,12 @@ const UserElement = ({user}: {user: User}) => {
             <td>
                 <b>User</b><br />
                 Name <br/>
-                Email
+                Email <br />
+                Sessions <br />
+                Password
             </td>
             <td>
-                <br />
+                <b>{cur_user.id}</b><br />
                 <input defaultValue={def_user.name}  onChange={(e) => {setCur_user({...cur_user, name:  e.target.value})}}/> <br />
                 <input defaultValue={def_user.email} onChange={(e) => {setCur_user({...cur_user, email: e.target.value})}}/> <br />
                 <button>Revoke All Sessions</button> <br />
