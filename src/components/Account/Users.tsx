@@ -4,9 +4,49 @@ import { useEffect, useState } from "react";
 import User from "../../models/User";
 import { Users } from "../../lib/ajax"
 
+const UserElement = ({user}: {user: User}) => {
+
+    const [cur_user, setCur_user] = useState<User>(user);
+    const [def_user, setDef_user] = useState<User>(user);
+
+    const [isChanged, setIsChanged] = useState(false);
+
+    useEffect(() => {
+        setIsChanged(JSON.stringify(cur_user) === JSON.stringify(def_user))
+    }, [cur_user])
+
+    return <div className="userBox">
+        <button onClick={() => {}} className={`saveBtn ${!isChanged ? "" : "disabled"}`}>Save</button>
+        <br />
+        <table>
+        <tbody>
+        <tr>
+            <td>
+                <b>User</b><br />
+                Name <br/>
+                Email
+            </td>
+            <td>
+                <br />
+                <input defaultValue={def_user.name}  onChange={(e) => {setCur_user({...cur_user, name:  e.target.value})}}/> <br />
+                <input defaultValue={def_user.email} onChange={(e) => {setCur_user({...cur_user, email: e.target.value})}}/> <br />
+                <button>Revoke All Sessions</button> <br />
+                <button>Reset Password</button>
+            </td>
+            <td>
+                <b>Permissions</b> <br />
+                <textarea defaultValue={def_user.permissions.join("\n")}/>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+        <br />
+    </div>
+}
+
+
 export default function UsersPage() {
 
-    const [def_allUsers, setDef_allUsers] = useState<User[]>([]);
     const [allUsers, setAllUsers] = useState<User[]>([]);
     const [usersHTML, setUsersHTML] = useState<JSX.Element[]>([]);
     
@@ -14,46 +54,21 @@ export default function UsersPage() {
     useEffect(() => {
         const init = async() => {
             setAllUsers((await Users.getUsers())["response"]);   
-            setDef_allUsers((await Users.getUsers())["response"]);   
         }
         init();
     }, [])
 
 
+
+
     useEffect(() => {
         let newUsersHTML: JSX.Element[] = [];
-        for(let i in def_allUsers) {
-            newUsersHTML[i] = <div className="userBox">
-                <button className="saveBtn disabled">Save</button>
-                <br />
-                <table>
-                <tbody>
-                <tr>
-                    <td>
-                        <b>User</b><br />
-                        Name <br/>
-                        Email
-                    </td>
-                    <td>
-                        <br />
-                        <input defaultValue={def_allUsers[i].name}/> <br />
-                        <input defaultValue={def_allUsers[i].email}/> <br />
-                        <button>Revoke All Sessions</button> <br />
-                        <button>Reset Password</button>
-                    </td>
-                    <td>
-                        <b>Permissions</b> <br />
-                        <textarea defaultValue={def_allUsers[i].permissions.join("\n")}/>
-                    </td>
-                </tr>
-                </tbody>
-                </table>
-                <br />
-            </div>
+        for(let i in allUsers) {
+            newUsersHTML[i] = <UserElement user={allUsers[i]} />
         }
 
         setUsersHTML(newUsersHTML);
-    }, [def_allUsers])
+    }, [allUsers])
 
     return <div>
         <br /><br />
