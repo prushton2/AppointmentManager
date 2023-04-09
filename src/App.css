@@ -38,12 +38,24 @@
 }
 
 button {}
-input {}
 label {}
 
+input {
+  color: white;
+  border: #48444c;
+  background-color: #48444c;
+}
+
 .largeButton {
+  background-color: #38343c;
+  color: white;
   border: 1px;
   padding: 10px;
   padding-left: 15px;
   padding-right: 15px;
 }
+
+.largeButton:hover {
+  background-color: #48444c;
+}
+

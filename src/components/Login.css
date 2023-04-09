@@ -4,7 +4,7 @@
     width: fit-content;
     height: fit-content;
 
-    background-color: lightgrey;
+    background-color: #2A2A2B;
     padding: 1em;
     padding-top: .5em;
     margin-top: 5em;
@@ -21,6 +21,14 @@
 
 .loginErrorLabel {
     background-color: red;
+    color: white;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-bottom: .2em;
+}
+
+.loginSuccessLabel {
+    background-color: green;
     color: white;
     padding-left: 1em;
     padding-right: 1em;

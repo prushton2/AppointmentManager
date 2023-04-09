@@ -11,9 +11,15 @@ export default function Login() {
     
 
     const login = async() => {
-        let res = await Account.Login(name, pass);
-        console.log(res)
-        setResponse(<label className="loginErrorLabel">Incorrect Login Information</label>)
+        let res;
+        try {
+            res = await Account.Login(name, pass);
+            setResponse(<label className="loginSuccessLabel">Login Successful</label>);
+
+        } catch {
+            setResponse(<label className="loginErrorLabel">Incorrect Login Information</label>)
+        }
+
     }
 
     useEffect(() => {
