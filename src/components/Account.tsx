@@ -43,7 +43,9 @@ export default function AccountPage() {
     ]
 
     const logout = async() => {
-        await Account.Logout();
+        try {
+            await Account.Logout();
+        } catch {}
         window.location.href="/";
     }
 
