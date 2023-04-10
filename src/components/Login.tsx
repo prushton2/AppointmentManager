@@ -62,7 +62,7 @@ export default function Login() {
                         <label>Password</label>
                     </td>
                     <td>
-                        <input onChange={(e) => setPass(e.target.value)} type="password" />
+                        <input onChange={(e) => setPass(e.target.value)} type="password" onKeyDown={(e) => {if(e.code === "Enter") {login()}}} />
                     </td>
                 </tr>
             </tbody>
