@@ -39,3 +39,9 @@ textarea {
 .saveBtn.disabled:hover {
     background-color: var(--dark);
 }
+
+.searchBox {
+    width: 30%;
+    height: 2em;
+    
+}

@@ -86,3 +86,13 @@ input {
   background-color: green;
   color: white;
 }
+
+select {
+  color: var(--color);
+  background-color: var(--light);
+  border: var(--medium);
+}
+
+select option {
+
+}

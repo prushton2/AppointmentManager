@@ -4,7 +4,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { useEffect, useState } from "react";
 import User from "../../models/User";
 import { Users } from "../../lib/ajax"
-import { AxiosError } from "axios";
+import { AxiosError, all } from "axios";
 import { confirmAlert } from "react-confirm-alert";
 import { alertService, axiosService } from "../../lib/utils";
 
@@ -78,13 +78,18 @@ const CreateUser = ({}: {}) => {
 
     const [cur_user, setCur_user] = useState<User>({} as User);
     const [password, setPassword] = useState("");
+    const [confPassword, setConfPassword] = useState("");
 
     const CreateUser = async() => {
+        if(password !== confPassword) {
+            alertService.fail("Create User Failed", "Passwords do not match");
+            return;
+        }
+
         try {
             await Users.createUser({...cur_user, password: password});
-            
         } catch (e) {
-            console.log((e as AxiosError).response?.data)
+            alertService.fail("Create User Fail", axiosService.errorToString(e as AxiosError))
         }
     }
 
@@ -97,12 +102,14 @@ const CreateUser = ({}: {}) => {
                 Name <br/>
                 Email <br />
                 Password <br />
+                Confirm <br />
             </td>
             <td>
                 <b></b><br />
                 <input onChange={(e) => {setCur_user({...cur_user, name:  e.target.value})}}/> <br />
                 <input onChange={(e) => {setCur_user({...cur_user, email: e.target.value})}}/> <br />
-                <input onChange={(e) => {setPassword(e.target.value)}}/> <br />
+                <input onChange={(e) => {setPassword(e.target.value)}} type="password"/> <br />
+                <input onChange={(e) => {setConfPassword(e.target.value)}} type="password"/> <br />
             </td>
             <td>
                 <b>Permissions</b> <br />
@@ -122,25 +129,53 @@ export default function UsersPage() {
     const [allUsers, setAllUsers] = useState<User[]>([]);
     const [usersHTML, setUsersHTML] = useState<JSX.Element[]>([]);
     
+    const [searchString, setSearchString] = useState<string>("");
+    const [searchParam, setSearchParam] = useState<string>("name");
+    
 
     useEffect(() => {
         const init = async() => {
-            setAllUsers((await Users.getUsers())["response"]);   
+            setAllUsers((await Users.getUsers())["response"]);  
+            setUsersHTML([]);
         }
         init();
     }, [])
 
     useEffect(() => {
+        //this needs to be so complex because of how react handles lists of JSX. (not my fault)
+        //We need to clear the list before rewriting it
+        if(JSON.stringify(usersHTML) !== "[]") { return; }
+
+        let users = structuredClone(allUsers);
+        
+        let filteredUsers: User[] = users.filter((v: User) => {return v.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1})
+
         let newUsersHTML: JSX.Element[] = [];
-        for(let i in allUsers) {
-            newUsersHTML[i] = <UserElement key={i} user={allUsers[i]} />
+        for(let i in filteredUsers) {
+            newUsersHTML[i] = <UserElement key={i} user={filteredUsers[i]} />
         }
 
-        setUsersHTML(newUsersHTML);
-    }, [allUsers])
+        if(JSON.stringify(newUsersHTML) !== JSON.stringify(usersHTML)) {
+            setUsersHTML(newUsersHTML);
+        }
+    }, [usersHTML])
+
+    useEffect(() => {
+        setUsersHTML([]);
+    }, [searchString])
 
     return <div>
-        <br /><br />
+        <br />
+        
+        {/* <select onChange={(e) => setSearchParam(e.target.value)}>
+            <option id="name">Sort By...</option>
+            <option id="name">Name</option>
+            <option id="email">Email</option>
+        </select>
+        {'\u00A0'}{'\u00A0'} */}
+
+        <input className="searchBox" placeholder="Search..." onChange={(e) => setSearchString(e.target.value)}/>
+        <br />
         <CreateUser />
         {usersHTML}
     </div>
