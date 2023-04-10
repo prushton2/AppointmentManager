@@ -4,7 +4,7 @@
     width: fit-content;
     height: fit-content;
 
-    background-color: var(--dark);
+    background-color: var(--box_bg);
     padding: 1em;
     padding-top: .5em;
     margin-top: 5em;

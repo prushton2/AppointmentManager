@@ -1,0 +1,10 @@
+:root {
+    --color: #FFFFFF;
+    --bg: #1e1e1e;
+    --highlight: #58545c;
+  
+    --box_bg: #2A2A2B;
+    --element_active: #2A2A2B;
+    --element_border: #38343c;
+    --element_bg: #48444c;
+  }

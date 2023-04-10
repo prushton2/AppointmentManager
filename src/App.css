@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: var(--light);
+  background-color: var(--element_bg);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@
 }
 
 button {
-  background-color: var(--light);
+  background-color: var(--element_bg);
   color: var(--color);
   border: 1px;
   padding: 3px;
@@ -48,24 +48,24 @@ button:hover {
   background-color: var(--highlight);
 }
 button:active {
-  background-color: var(--dark);
+  background-color: var(--box_bg);
 }
 
 textarea {
   color: var(--color);
-  border: 1px solid var(--medium);
-  background-color: var(--light);
+  border: 1px solid var(--element_border);
+  background-color: var(--element_bg);
 }
 
 
 input {
   color: var(--color);
-  border: 1px solid var(--medium);
-  background-color: var(--light);
+  border: 1px solid var(--element_border);
+  background-color: var(--element_bg);
 }
 
 .largeButton {
-  background-color: var(--medium);
+  background-color: var(--element_bg);
   color: var(--color);
   border: 1px;
   padding: 10px;
@@ -74,7 +74,7 @@ input {
 }
 
 .largeButton:hover {
-  background-color: var(--light);
+  background-color: var(--highlight);
 }
 
 .errorLabel {
@@ -89,8 +89,8 @@ input {
 
 select {
   color: var(--color);
-  background-color: var(--light);
-  border: var(--medium);
+  background-color: var(--element_bg);
+  border: var(--element_border);
 }
 
 select option {

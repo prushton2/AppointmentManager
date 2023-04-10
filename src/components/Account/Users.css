@@ -6,7 +6,7 @@
     text-align: left;
     width: fit-content;
     padding: 10px;
-    background-color: var(--dark);
+    background-color: var(--box_bg);
 }
 
 .userBox.left {
@@ -39,11 +39,11 @@ textarea {
 }
 
 .saveBtn.disabled {
-    background-color: var(--dark);
+    background-color: var(--box_bg);
 }
 
 .saveBtn.disabled:hover {
-    background-color: var(--dark);
+    background-color: var(--box_bg);
 }
 
 .searchBox {
