@@ -10,11 +10,17 @@
 }
 
 .userBox.left {
-    transform: translate(-20%, 0%);
+    position: absolute;
+    left: 2.5%;
 }
 .userBox.right {
     position: absolute;
-    right: 5%;
+    left: 35.5%;
+}
+
+.userBox.createUser {
+    position: absolute;
+    left: 68.5%;
 }
 
 table td {

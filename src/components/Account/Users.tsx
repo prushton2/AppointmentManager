@@ -8,7 +8,7 @@ import { AxiosError, all } from "axios";
 import { confirmAlert } from "react-confirm-alert";
 import { alertService, axiosService } from "../../lib/utils";
 
-const UserElement = ({user}: {user: User}) => {
+const UserElement = ({user, id}: {user: User, id: number}) => {
 
     const [cur_user, setCur_user] = useState<User>(user);
     const [def_user, setDef_user] = useState<User>(user);
@@ -43,14 +43,14 @@ const UserElement = ({user}: {user: User}) => {
 
     }
 
-    return <div className="userBox left">
+    return <div className={`userBox ${id%2 === 0 ? "left" : "right"}`} style={{top: `${11.8 + 16*Math.floor(id/2)}em`}}  >
         <button onClick={() => {saveUser()}} className={`saveBtn ${!isChanged ? "" : "disabled"}`}>Save</button>
         <br />
         <table>
         <tbody>
         <tr>
             <td>
-                <b>User</b><br />
+                <b>User ID</b><br />
                 Name <br/>
                 Email <br />
                 Sessions <br />
@@ -93,7 +93,7 @@ const CreateUser = ({}: {}) => {
         }
     }
 
-    return <div className="userBox right">
+    return <div className="userBox createUser">
         <table>
         <tbody>
         <tr>
@@ -130,7 +130,6 @@ export default function UsersPage() {
     const [usersHTML, setUsersHTML] = useState<JSX.Element[]>([]);
     
     const [searchString, setSearchString] = useState<string>("");
-    const [searchParam, setSearchParam] = useState<string>("name");
     
 
     useEffect(() => {
@@ -152,7 +151,7 @@ export default function UsersPage() {
 
         let newUsersHTML: JSX.Element[] = [];
         for(let i in filteredUsers) {
-            newUsersHTML[i] = <UserElement key={i} user={filteredUsers[i]} />
+            newUsersHTML[i] = <UserElement key={i} id={parseInt(i)} user={filteredUsers[i]} />
         }
 
         if(JSON.stringify(newUsersHTML) !== JSON.stringify(usersHTML)) {
