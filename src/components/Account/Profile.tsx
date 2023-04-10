@@ -3,6 +3,7 @@ import "../../App.css"
 import { useEffect, useState } from "react";
 import { Account } from "../../lib/ajax";
 import User from "../../models/User";
+import { AxiosError } from "axios";
 
 const ChangePassword = ({userInfo}: {userInfo: User}) => {
 
@@ -24,7 +25,8 @@ const ChangePassword = ({userInfo}: {userInfo: User}) => {
             await Account.ChangePassword(old, npw);
             setSuccessLabel("Password Changed");
         } catch (e) {
-            setErrorLabel("Password Not Changed");
+            let errormsg = (((e as AxiosError).response?.data) as Object)["response" as keyof Object];
+            setErrorLabel(errormsg.toString());
         }
     }
 
@@ -47,7 +49,8 @@ const ChangePassword = ({userInfo}: {userInfo: User}) => {
         </tbody>
         </table>
         <label className="errorLabel">{errorLabel}</label>
-        <label className="successLabel">{successLabel}</label> <br />
+        <label className="successLabel">{successLabel}</label>
+        <br />
         <button className="largeButton" onClick={() => {ChangePassword()}}>Change</button>
     </div>
 }

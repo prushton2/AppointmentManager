@@ -82,7 +82,7 @@ input {
   color: white;
 }
 
-.errorLabel {
+.successLabel {
   background-color: green;
   color: white;
 }

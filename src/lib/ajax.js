@@ -30,7 +30,7 @@ export const Account = {
         const url = `${process.env.REACT_APP_BACKEND_URL}/account/changePassword`;
         const body = {oldPassword: oldPassword, newPassword: newPassword};
         
-        const response = await axios.get(url, body, cookieConfig);
+        const response = await axios.post(url, body, cookieConfig);
         return (response.data);
     }
 }
