@@ -32,6 +32,14 @@ export const Account = {
         
         const response = await axios.post(url, body, cookieConfig);
         return (response.data);
+    },
+
+    changeProp: async (prop, value) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/account/changeProp`;
+        const body = {prop: prop, value: value};
+        
+        const response = await axios.patch(url, body, cookieConfig);
+        return (response.data);
     }
 }
 

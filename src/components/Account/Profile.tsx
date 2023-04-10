@@ -3,7 +3,7 @@ import "../../App.css"
 import { useEffect, useState } from "react";
 import { Account } from "../../lib/ajax";
 import User from "../../models/User";
-import { AxiosError } from "axios";
+import axios, { AxiosError } from "axios";
 import { alertService, axiosService } from "../../lib/utils";
 
 const ChangePassword = ({userInfo}: {userInfo: User}) => {
@@ -55,6 +55,45 @@ const ChangePassword = ({userInfo}: {userInfo: User}) => {
     </div>
 }
 
+const ChangeEmail = ({userInfo}: {userInfo: User}) => {
+
+    const [newEmail, setNewEmail] = useState("");
+
+    const [errorLabel, setErrorLabel] = useState("");
+    const [successLabel, setSuccessLabel] = useState("");
+
+
+    async function saveEmail()  {
+        try {
+            await Account.changeProp("email", newEmail);
+            setSuccessLabel("Email Changed");
+        } catch (e) {
+            setErrorLabel(axiosService.errorToString(e as AxiosError));
+        }
+    }
+
+    return <div>
+        <b>Change Email</b>
+        <table>
+        <tbody>
+        <tr>
+            <td>
+                Email Address
+            </td>   
+            <td>
+                <input defaultValue={userInfo.email} onChange={(e) => setNewEmail(e.target.value)}/>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+
+        <label className="errorLabel">{errorLabel}</label>
+        <label className="successLabel">{successLabel}</label> 
+        <br />
+
+        <button onClick={() => saveEmail()} className="largeButton">Save Email</button>
+    </div>
+}
 
 export default function ProfilePage() {
 
@@ -73,6 +112,8 @@ export default function ProfilePage() {
     return <div className="profileDiv">
         <b>{userInfo.name}</b> <br />
         <hr />
-        <ChangePassword userInfo={userInfo}/>
+        <ChangePassword userInfo={userInfo} />
+        <hr />
+        <ChangeEmail userInfo={userInfo} />
     </div>
 }
