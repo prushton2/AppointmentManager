@@ -40,6 +40,14 @@ export const Account = {
         
         const response = await axios.patch(url, body, cookieConfig);
         return (response.data);
+    },
+
+    delete: async (password) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/account/delete`;
+        const body = {password: password};
+        
+        const response = await axios.post(url, body, cookieConfig);
+        return (response.data);
     }
 }
 

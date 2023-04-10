@@ -95,6 +95,36 @@ const ChangeEmail = ({userInfo}: {userInfo: User}) => {
     </div>
 }
 
+const DeleteAccount = () => {
+    
+    
+    const [errorLabel, setErrorLabel] = useState("");
+    const [successLabel, setSuccessLabel] = useState("");
+
+    const [pw, setPw] = useState("");
+
+    async function deleteAccount() {
+        try {
+            await Account.delete(pw);
+            setSuccessLabel("Account Deleted");
+            setErrorLabel("");
+            setTimeout(() => {window.location.href = "/"}, 1000);
+        } catch (e) {
+            console.log(e);
+            setErrorLabel(axiosService.errorToString(e as AxiosError));
+        }
+    }
+
+    return <div>
+        <b>Delete Account</b> <br />
+        Password: <input onChange={(e) => setPw(e.target.value)} type="password"/> <br />
+        <label className="errorLabel">{errorLabel}</label>
+        <label className="successLabel">{successLabel}</label> 
+        <br />
+        <button onClick={() => deleteAccount()} className="largeButton">Delete</button>
+    </div>
+}
+
 export default function ProfilePage() {
 
     const [userInfo, setUserInfo] = useState<User>({} as User);
@@ -112,8 +142,10 @@ export default function ProfilePage() {
     return <div className="profileDiv">
         <b>{userInfo.name}</b> <br />
         <hr />
+        <ChangeEmail userInfo={userInfo} />
+        <hr />
         <ChangePassword userInfo={userInfo} />
         <hr />
-        <ChangeEmail userInfo={userInfo} />
+        <DeleteAccount />
     </div>
 }
