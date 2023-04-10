@@ -1,9 +1,12 @@
 import "./Users.css"
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import { useEffect, useState } from "react";
 import User from "../../models/User";
 import { Users } from "../../lib/ajax"
-import { Axios, AxiosError } from "axios";
+import { AxiosError } from "axios";
+import { confirmAlert } from "react-confirm-alert";
+import { alertService } from "../../lib/utils";
 
 const UserElement = ({user}: {user: User}) => {
 
@@ -26,6 +29,18 @@ const UserElement = ({user}: {user: User}) => {
         setDef_user(cur_user);
     }
 
+    const resetPassword = async() => {
+        const run = async() => {
+            try {
+                await Users.resetPassword(cur_user.id);
+                alertService.alert("Password Reset", "Password was reset to 'password'")
+            } catch (e) {console.log(e)}
+        }
+
+        alertService.confirm("Are you sure?", "Reset Password", () => run());
+
+    }
+
     return <div className="userBox left">
         <button onClick={() => {saveUser()}} className={`saveBtn ${!isChanged ? "" : "disabled"}`}>Save</button>
         <br />
@@ -44,7 +59,7 @@ const UserElement = ({user}: {user: User}) => {
                 <input defaultValue={def_user.name}  onChange={(e) => {setCur_user({...cur_user, name:  e.target.value})}}/> <br />
                 <input defaultValue={def_user.email} onChange={(e) => {setCur_user({...cur_user, email: e.target.value})}}/> <br />
                 <button onClick={() => {setCur_user({...cur_user, sessions: []})}}>Revoke All Sessions</button> <br />
-                <button>Reset Password</button>
+                <button onClick={() => {resetPassword()}}>Reset Password</button>
             </td>
             <td>
                 <b>Permissions</b> <br />
