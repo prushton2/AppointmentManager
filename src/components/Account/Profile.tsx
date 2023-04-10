@@ -95,6 +95,46 @@ const ChangeEmail = ({userInfo}: {userInfo: User}) => {
     </div>
 }
 
+const ChangeName = ({userInfo}: {userInfo: User}) => {
+
+    const [newName, setNewName] = useState("");
+
+    const [errorLabel, setErrorLabel] = useState("");
+    const [successLabel, setSuccessLabel] = useState("");
+
+
+    async function saveName()  {
+        try {
+            await Account.changeProp("name", newName);
+            setSuccessLabel("Name Changed");
+        } catch (e) {
+            setErrorLabel(axiosService.errorToString(e as AxiosError));
+        }
+    }
+
+    return <div>
+        <b>Change Name</b>
+        <table>
+        <tbody>
+        <tr>
+            <td>
+                Name {'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}{'\u00A0'}
+            </td>   
+            <td>
+                <input defaultValue={userInfo.name} onChange={(e) => setNewName(e.target.value)}/>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+
+        <label className="errorLabel">{errorLabel}</label>
+        <label className="successLabel">{successLabel}</label> 
+        <br />
+
+        <button onClick={() => saveName()} className="largeButton">Save Name</button>
+    </div>
+}
+
 const DeleteAccount = () => {
     
     
@@ -141,6 +181,8 @@ export default function ProfilePage() {
 
     return <div className="profileDiv">
         <b>{userInfo.name}</b> <br />
+        <hr />
+        <ChangeName userInfo={userInfo} />
         <hr />
         <ChangeEmail userInfo={userInfo} />
         <hr />
