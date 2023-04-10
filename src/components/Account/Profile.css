@@ -1,0 +1,15 @@
+.profileDiv {
+    margin: auto;
+    margin-top: 20px;
+    width: fit-content;
+    padding: 15px;
+    background-color: var(--dark);
+}
+
+hr {
+    margin-bottom: 20px;
+}
+
+td {
+    text-align: left;
+}

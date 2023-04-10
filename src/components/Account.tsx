@@ -6,6 +6,7 @@ import {Account} from "../lib/ajax"
 import { TabPanelInfo } from "../models/TabPanelInfo";
 
 import Users from "./Account/Users";
+import Profile from "./Account/Profile";
 
 export default function AccountPage() {
 
@@ -17,7 +18,7 @@ export default function AccountPage() {
     const allTabs: TabPanelInfo[] = [
         {
             name: "My Profile",
-            JSX: <a>My Profile</a>,
+            JSX: <Profile />,
             permission: "permissions.self"
         },
         {

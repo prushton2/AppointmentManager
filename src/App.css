@@ -14,14 +14,14 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: var(--light);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: var(--color);
 }
 
 .App-link {
@@ -37,17 +37,9 @@
   }
 }
 
-:root {
-  --bg: #1e1e1e;
-  --dark: #2A2A2B;
-  --medium: #38343c;
-  --light: #48444c;
-  --highlight: #58545c;
-}
-
 button {
   background-color: var(--light);
-  color: white;
+  color: var(--color);
   border: 1px;
   padding: 3px;
 }
@@ -60,21 +52,21 @@ button:active {
 }
 
 textarea {
-  color: white;
+  color: var(--color);
   border: 1px solid var(--medium);
   background-color: var(--light);
 }
 
 
 input {
-  color: white;
+  color: var(--color);
   border: 1px solid var(--medium);
   background-color: var(--light);
 }
 
 .largeButton {
   background-color: var(--medium);
-  color: white;
+  color: var(--color);
   border: 1px;
   padding: 10px;
   padding-left: 15px;
@@ -85,3 +77,12 @@ input {
   background-color: var(--light);
 }
 
+.errorLabel {
+  background-color: red;
+  color: white;
+}
+
+.errorLabel {
+  background-color: green;
+  color: white;
+}
