@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Account } from "../../lib/ajax";
 import User from "../../models/User";
 import { AxiosError } from "axios";
+import { alertService, axiosService } from "../../lib/utils";
 
 const ChangePassword = ({userInfo}: {userInfo: User}) => {
 
@@ -25,8 +26,7 @@ const ChangePassword = ({userInfo}: {userInfo: User}) => {
             await Account.ChangePassword(old, npw);
             setSuccessLabel("Password Changed");
         } catch (e) {
-            let errormsg = (((e as AxiosError).response?.data) as Object)["response" as keyof Object];
-            setErrorLabel(errormsg.toString());
+            setErrorLabel(axiosService.errorToString(e as AxiosError));
         }
     }
 
@@ -43,7 +43,7 @@ const ChangePassword = ({userInfo}: {userInfo: User}) => {
             <td>
                 <input onChange={(e) => setOld(e.target.value)} type="password"/> <br />
                 <input onChange={(e) => setNpw(e.target.value)} type="password"/> <br />
-                <input onChange={(e) => setChk(e.target.value)} type="password"/> <br />
+                <input onChange={(e) => setChk(e.target.value)} onKeyDown={(e) => {if(e.code === "Enter") {ChangePassword()}}} type="password"/> <br />
             </td>
         </tr>
         </tbody>

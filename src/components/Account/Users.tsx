@@ -6,7 +6,7 @@ import User from "../../models/User";
 import { Users } from "../../lib/ajax"
 import { AxiosError } from "axios";
 import { confirmAlert } from "react-confirm-alert";
-import { alertService } from "../../lib/utils";
+import { alertService, axiosService } from "../../lib/utils";
 
 const UserElement = ({user}: {user: User}) => {
 
@@ -34,7 +34,9 @@ const UserElement = ({user}: {user: User}) => {
             try {
                 await Users.resetPassword(cur_user.id);
                 alertService.alert("Password Reset", "Password was reset to 'password'")
-            } catch (e) {console.log(e)}
+            } catch (e) {
+                alertService.fail("Password Reset", axiosService.errorToString(e as AxiosError));
+            }
         }
 
         alertService.confirm("Are you sure?", "Reset Password", () => run());
