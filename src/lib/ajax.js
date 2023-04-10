@@ -36,10 +36,18 @@ export const Users = {
     },
 
     setUser: async(id, newProps) => {
-        const url = `${process.env.REACT_APP_BACKEND_URL}/users/set`;
+        const url = `${process.env.REACT_APP_BACKEND_URL}/users/setUser`;
         const body = {id: id, newProps: newProps}
 
         const response = await axios.patch(url, body, cookieConfig);
+        return response.data;
+    },
+
+    createUser: async(info) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/account/createUser`;
+        const body = info;
+
+        const response = await axios.post(url, body, cookieConfig);
         return response.data;
     }
 }

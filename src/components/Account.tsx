@@ -23,7 +23,7 @@ export default function AccountPage() {
         {
             name: "My Appointments",
             JSX: <a>My Appointments</a>,
-            permission: "permissions.appointments.me"
+            permission: "permissions.self"
         },
         {
             name: "Slots",
@@ -33,7 +33,7 @@ export default function AccountPage() {
         {
             name: "Appointment Page",
             JSX: <a>Appointment Page</a>,
-            permission: "permissions.appointments.page"
+            permission: "permissions.appointments"
         },
         {
             name: "Users & Permissions",

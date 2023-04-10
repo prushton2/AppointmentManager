@@ -2,9 +2,20 @@
     position: relative;
     align-items: center;
     margin: auto;
+    margin-top: 20px;
     text-align: left;
-    width: 30%;
+    width: fit-content;
+    padding: 10px;
     background-color: var(--dark);
+}
+
+.userBox.left {
+    transform: translate(-20%, 0%);
+}
+.userBox.right {
+    position: absolute;
+    right: 5%;
+    /* transform: translate(75%, 0%); */
 }
 
 table td {

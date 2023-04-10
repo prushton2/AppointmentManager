@@ -3,6 +3,7 @@ import "./Users.css"
 import { useEffect, useState } from "react";
 import User from "../../models/User";
 import { Users } from "../../lib/ajax"
+import { Axios, AxiosError } from "axios";
 
 const UserElement = ({user}: {user: User}) => {
 
@@ -13,18 +14,19 @@ const UserElement = ({user}: {user: User}) => {
 
     useEffect(() => {
         setIsChanged(JSON.stringify(cur_user) === JSON.stringify(def_user))
-    }, [cur_user])
+    }, [cur_user, def_user])
 
     const saveUser = async() => {
-        await Users.setUser(def_user.id, {
-            name: def_user.name,
-            email: def_user.email,
-            permissions: def_user.permissions,
+        await Users.setUser(cur_user.id, {
+            name: cur_user.name,
+            email: cur_user.email,
+            permissions: cur_user.permissions,
+            sessions: cur_user.sessions,
         })
         setDef_user(cur_user);
     }
 
-    return <div className="userBox">
+    return <div className="userBox left">
         <button onClick={() => {saveUser()}} className={`saveBtn ${!isChanged ? "" : "disabled"}`}>Save</button>
         <br />
         <table>
@@ -41,12 +43,12 @@ const UserElement = ({user}: {user: User}) => {
                 <b>{cur_user.id}</b><br />
                 <input defaultValue={def_user.name}  onChange={(e) => {setCur_user({...cur_user, name:  e.target.value})}}/> <br />
                 <input defaultValue={def_user.email} onChange={(e) => {setCur_user({...cur_user, email: e.target.value})}}/> <br />
-                <button>Revoke All Sessions</button> <br />
+                <button onClick={() => {setCur_user({...cur_user, sessions: []})}}>Revoke All Sessions</button> <br />
                 <button>Reset Password</button>
             </td>
             <td>
                 <b>Permissions</b> <br />
-                <textarea defaultValue={def_user.permissions.join("\n")}/>
+                <textarea defaultValue={def_user.permissions.join("\n")} onChange={(e) => {setCur_user({...cur_user, permissions: e.target.value.split("\n")})}}/>
             </td>
         </tr>
         </tbody>
@@ -55,6 +57,48 @@ const UserElement = ({user}: {user: User}) => {
     </div>
 }
 
+const CreateUser = ({}: {}) => {
+
+    const [cur_user, setCur_user] = useState<User>({} as User);
+    const [password, setPassword] = useState("");
+
+    const CreateUser = async() => {
+        try {
+            await Users.createUser({...cur_user, password: password});
+            
+        } catch (e) {
+            console.log((e as AxiosError).response?.data)
+        }
+    }
+
+    return <div className="userBox right">
+        <table>
+        <tbody>
+        <tr>
+            <td>
+                <b>New User</b><br />
+                Name <br/>
+                Email <br />
+                Password <br />
+            </td>
+            <td>
+                <b></b><br />
+                <input onChange={(e) => {setCur_user({...cur_user, name:  e.target.value})}}/> <br />
+                <input onChange={(e) => {setCur_user({...cur_user, email: e.target.value})}}/> <br />
+                <input onChange={(e) => {setPassword(e.target.value)}}/> <br />
+            </td>
+            <td>
+                <b>Permissions</b> <br />
+                <textarea onChange={(e) => {setCur_user({...cur_user, permissions: e.target.value.split("\n")})}}/>
+            </td>
+        </tr>
+        </tbody>
+        </table>
+        <div style={{width: "fit-content", margin: "auto"}}>
+            <button onClick={() => {CreateUser()}} className="largeButton">Create User</button>
+        </div>
+    </div>
+}
 
 export default function UsersPage() {
 
@@ -69,9 +113,6 @@ export default function UsersPage() {
         init();
     }, [])
 
-
-
-
     useEffect(() => {
         let newUsersHTML: JSX.Element[] = [];
         for(let i in allUsers) {
@@ -83,6 +124,7 @@ export default function UsersPage() {
 
     return <div>
         <br /><br />
+        <CreateUser />
         {usersHTML}
     </div>
 }
