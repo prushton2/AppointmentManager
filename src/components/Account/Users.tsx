@@ -43,7 +43,7 @@ const UserElement = ({user, id}: {user: User, id: number}) => {
 
     }
 
-    return <div className={`userBox ${id%2 === 0 ? "left" : "right"}`} style={{top: `${11.8 + 16*Math.floor(id/2)}em`}}  >
+    return <div className={`userBox ${id%2 === 0 ? "left" : "right"}`} style={{top: `${3.2 + 16*Math.floor(id/2)}em`}}  >
         <button onClick={() => {saveUser()}} className={`saveBtn ${!isChanged ? "" : "disabled"}`}>Save</button>
         <br />
         <table>
@@ -130,7 +130,7 @@ export default function UsersPage() {
     const [usersHTML, setUsersHTML] = useState<JSX.Element[]>([]);
     
     const [searchString, setSearchString] = useState<string>("");
-    
+    const [searchParam, setSearchParam] = useState<string>("name");
 
     useEffect(() => {
         const init = async() => {
@@ -140,6 +140,18 @@ export default function UsersPage() {
         init();
     }, [])
 
+
+    function getSearchParam(v: User) {
+        switch(searchParam) {
+            case "email":
+                return structuredClone(v).email;
+            case "permissions":
+                return structuredClone(v).permissions.join("\n");
+            default:
+                return structuredClone(v).name;
+        }
+    }
+
     useEffect(() => {
         //this needs to be so complex because of how react handles lists of JSX. (not my fault)
         //We need to clear the list before rewriting it
@@ -147,7 +159,9 @@ export default function UsersPage() {
 
         let users = structuredClone(allUsers);
         
-        let filteredUsers: User[] = users.filter((v: User) => {return v.name.toLowerCase().indexOf(searchString.toLowerCase()) !== -1})
+        // console.log((allUsers[0])[searchParam as keyof User]);
+
+        let filteredUsers: User[] = users.filter((v: User) => {return getSearchParam(v).toLowerCase().indexOf(searchString.toLowerCase()) !== -1})
 
         let newUsersHTML: JSX.Element[] = [];
         for(let i in filteredUsers) {
@@ -161,17 +175,17 @@ export default function UsersPage() {
 
     useEffect(() => {
         setUsersHTML([]);
-    }, [searchString])
+    }, [searchString, searchParam])
 
-    return <div>
+    return <div style={{position: "relative"}}>
         <br />
         
-        {/* <select onChange={(e) => setSearchParam(e.target.value)}>
-            <option id="name">Sort By...</option>
-            <option id="name">Name</option>
-            <option id="email">Email</option>
+        <select onChange={(e) => setSearchParam(e.target.value)}>
+            <option value="name">Name</option>
+            <option value="email">Email</option>
+            <option value="permissions">Permissions</option>
         </select>
-        {'\u00A0'}{'\u00A0'} */}
+        {'\u00A0'}{'\u00A0'}
 
         <input className="searchBox" placeholder="Search..." onChange={(e) => setSearchString(e.target.value)}/>
         <br />
