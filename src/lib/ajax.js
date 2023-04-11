@@ -68,7 +68,7 @@ export const Users = {
     },
 
     createUser: async(info) => {
-        const url = `${process.env.REACT_APP_BACKEND_URL}/account/createUser`;
+        const url = `${process.env.REACT_APP_BACKEND_URL}/users/createUser`;
         const body = info;
 
         const response = await axios.post(url, body, cookieConfig);
