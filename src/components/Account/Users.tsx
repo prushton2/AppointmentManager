@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 import User from "../../models/User";
 import { Users } from "../../lib/ajax"
 import { AxiosError, all } from "axios";
-import { confirmAlert } from "react-confirm-alert";
 import { alertService, axiosService } from "../../lib/utils";
+import {ToastsStore} from 'react-toasts';
 
 const UserElement = ({user, id}: {user: User, id: number}) => {
 
@@ -89,7 +89,7 @@ const CreateUser = ({}: {}) => {
         try {
             await Users.createUser({...cur_user, password: password});
         } catch (e) {
-            alertService.fail("Create User Fail", axiosService.errorToString(e as AxiosError))
+            ToastsStore.error(axiosService.errorToString(e as AxiosError));
         }
     }
 
