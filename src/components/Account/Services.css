@@ -1,0 +1,52 @@
+.slotBox {
+    position: relative;
+    align-items: center;
+    margin: auto;
+    margin-top: 20px;
+    text-align: left;
+    width: fit-content;
+    padding: 10px;
+    background-color: var(--box_bg);
+}
+
+.slotBox.left {
+    position: absolute;
+    left: 2.5%;
+}
+.slotBox.right {
+    position: absolute;
+    left: 35.5%;
+}
+
+.slotBox.createSlot {
+    position: absolute;
+    left: 68.5%;
+}
+
+table td {
+    vertical-align: top;
+}
+
+textarea {
+    width: 15em;
+    height: 10em;
+}
+
+.saveBtn {
+    position:absolute;
+    top: 3px;
+    right: 3px;
+}
+
+.saveBtn.disabled {
+    background-color: var(--box_bg);
+}
+
+.saveBtn.disabled:hover {
+    background-color: var(--box_bg);
+}
+
+.searchBox {
+    width: 30%;
+    height: 2em;
+}

@@ -91,3 +91,33 @@ export const Users = {
         return response.data;
     }
 }
+
+export const Services = {
+    create: async(name, price, description) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/services/delete`;
+        const body = {name: name, price: price, description: description};
+
+        const response = await axios.post(url, body, cookieConfig);
+        return response.data;
+    },
+    modify: async(id, prop, value) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/services/modify`;
+        const body = {id: id, prop: prop, value: value};
+
+        const response = await axios.patch(url, body, cookieConfig);
+        return response.data;
+    },
+    delete: async(id) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/services/delete`;
+        const body = {id: id};
+
+        const response = await axios.post(url, body, cookieConfig);
+        return response.data;
+    },
+    getAll: async() => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/services/getAll`;
+
+        const response = await axios.get(url, cookieConfig);
+        return response.data;
+    },
+}

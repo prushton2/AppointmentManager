@@ -7,6 +7,7 @@ import { TabPanelInfo } from "../models/TabPanelInfo";
 
 import Users from "./Account/Users";
 import Profile from "./Account/Profile";
+import Services from "./Account/Services";
 
 export default function AccountPage() {
 
@@ -33,7 +34,7 @@ export default function AccountPage() {
         },
         {
             name: "Services",
-            JSX: <a>Services</a>,
+            JSX: <Services />,
             permission: "permissions.services"
         },
         {
