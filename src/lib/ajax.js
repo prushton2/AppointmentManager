@@ -81,5 +81,13 @@ export const Users = {
 
         const response = await axios.patch(url, body, cookieConfig);
         return response.data;
+    },
+
+    delete: async(id) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/users/delete`;
+        const body = {id: id};
+
+        const response = await axios.post(url, body, cookieConfig);
+        return response.data;
     }
 }

@@ -43,6 +43,19 @@ const UserElement = ({user, id}: {user: User, id: number}) => {
 
     }
 
+    const deleteUser = async() => {
+        const run = async() => {
+            try {
+                await Users.delete(cur_user.id);
+                alertService.alert("Delete User", "User Deleted")
+            } catch (e) {
+                alertService.fail("Delete User", axiosService.errorToString(e as AxiosError));
+            }
+        }
+
+        alertService.confirm("Delete User", "Are you sure you want to delete this user?", () => run());
+    }
+
     return <div className={`userBox ${id%2 === 0 ? "left" : "right"}`} style={{top: `${3.2 + 16*Math.floor(id/2)}em`}}  >
         <button onClick={() => {saveUser()}} className={`saveBtn ${!isChanged ? "" : "disabled"}`}>Save</button>
         <br />
@@ -62,6 +75,8 @@ const UserElement = ({user, id}: {user: User, id: number}) => {
                 <input defaultValue={def_user.email} onChange={(e) => {setCur_user({...cur_user, email: e.target.value})}}/> <br />
                 <button onClick={() => {setCur_user({...cur_user, sessions: []})}}>Revoke All Sessions</button> <br />
                 <button onClick={() => {resetPassword()}}>Reset Password</button>
+                <br /><br />
+                <button onClick={() => {deleteUser()}}>Delete User</button>
             </td>
             <td>
                 <b>Permissions</b> <br />

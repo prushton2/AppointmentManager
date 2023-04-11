@@ -12,8 +12,8 @@ export default function AccountPage() {
 
     const [selectedTab, setSelectedTab] = useState(0);
     
-    const [tabTitles, setTabTitles] = useState<JSX.Element[]>([<Tab key={0}/>, <Tab key={1}/>, <Tab key={2}/>, <Tab key={3}/>, <Tab key={4}/>]);
-    const [tabPanels, setTabPanels] = useState<JSX.Element[]>([<TabPanel key={0}/>, <TabPanel key={1}/>, <TabPanel key={2}/>, <TabPanel key={3}/>, <TabPanel key={4}/>]);
+    const [tabTitles, setTabTitles] = useState<JSX.Element[]>([<Tab key={0}/>, <Tab key={1}/>, <Tab key={2}/>, <Tab key={3}/>, <Tab key={4}/>, <Tab key={5}/>]);
+    const [tabPanels, setTabPanels] = useState<JSX.Element[]>([<TabPanel key={0}/>, <TabPanel key={1}/>, <TabPanel key={2}/>, <TabPanel key={3}/>, <TabPanel key={4}/>, <TabPanel key={4}/>]);
 
     const allTabs: TabPanelInfo[] = [
         {
@@ -30,6 +30,11 @@ export default function AccountPage() {
             name: "Slots",
             JSX: <a>Slots</a>,
             permission: "permissions.slots"
+        },
+        {
+            name: "Services",
+            JSX: <a>Services</a>,
+            permission: "permissions.services"
         },
         {
             name: "Appointment Page",
