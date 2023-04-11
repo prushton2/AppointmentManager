@@ -88,6 +88,7 @@ const CreateUser = ({}: {}) => {
 
         try {
             await Users.createUser({...cur_user, password: password});
+            ToastsStore.success("User Created")
         } catch (e) {
             ToastsStore.error(axiosService.errorToString(e as AxiosError));
         }

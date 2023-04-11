@@ -1,6 +1,7 @@
 .alertBox {
     position: relative;
-    background-color: var(--medium);
+    background-color: var(--box_bg);
+    color: var(--color);
     align-items: center;
     text-align: center;
     padding: 20px;

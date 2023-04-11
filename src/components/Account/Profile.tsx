@@ -144,15 +144,19 @@ const DeleteAccount = () => {
     const [pw, setPw] = useState("");
 
     async function deleteAccount() {
-        try {
-            await Account.delete(pw);
-            setSuccessLabel("Account Deleted");
-            setErrorLabel("");
-            setTimeout(() => {window.location.href = "/"}, 1000);
-        } catch (e) {
-            console.log(e);
-            setErrorLabel(axiosService.errorToString(e as AxiosError));
+
+        async function run() {
+            try {
+                await Account.delete(pw);
+                setSuccessLabel("Account Deleted");
+                setErrorLabel("");
+                setTimeout(() => {window.location.href = "/"}, 1000);
+            } catch (e) {
+                setErrorLabel(axiosService.errorToString(e as AxiosError));
+            }
         }
+
+        alertService.confirm("Delete Account", "Are you sure you would like to delete your account?", () => run());
     }
 
     return <div>
