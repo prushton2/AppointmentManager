@@ -1,4 +1,4 @@
-.slotBox {
+.serviceBox {
     position: relative;
     align-items: center;
     margin: auto;
@@ -9,18 +9,22 @@
     background-color: var(--box_bg);
 }
 
-.slotBox.left {
+.serviceBox.left {
     position: absolute;
-    left: 2.5%;
+    left: 23%;
 }
-.slotBox.right {
+.serviceBox.middle {
     position: absolute;
-    left: 35.5%;
+    left: 41%;
+}
+.serviceBox.right {
+    position: absolute;
+    left: 59%;
 }
 
-.slotBox.createSlot {
+.serviceBox.createService {
     position: absolute;
-    left: 68.5%;
+    left: 77%;
 }
 
 table td {
