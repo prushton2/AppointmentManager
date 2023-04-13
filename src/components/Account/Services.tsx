@@ -80,7 +80,6 @@ export default function ServicesPage() {
         
         let filteredServices: Service[] = services.filter((v: Service) => {return getSearchParam(v).toLowerCase().indexOf(searchString.toLowerCase()) !== -1})
         
-
         for(let i = 0; i<filteredServices.length; i++) {
             let v = filteredServices[i];
             newServicesHTML[i] = <ServiceElement service={v} index={i} key={i} />
@@ -100,7 +99,7 @@ export default function ServicesPage() {
         
         <select onChange={(e) => setSearchParam(e.target.value)}>
             <option value="name">Name</option>
-            <option value="description">description</option>
+            <option value="description">Description</option>
             <option value="rate">Rate</option>
         </select>
         {'\u00A0'}{'\u00A0'}
