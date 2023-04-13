@@ -1,22 +1,51 @@
 import "./Services.css"
 import { useEffect, useState } from "react";
-import Service from "../../models/Service";
+import {Service, ServiceWithoutID} from "../../models/Service";
 import { Services } from "../../lib/ajax";
-
+import { alertService, axiosService } from "../../lib/utils";
+import { AxiosError } from "axios";
+import { ToastsStore } from "react-toasts";
 
 const ServiceElement = ({service, index}: {service: Service, index: number}) => {
 
     const [currentService, setCurrentService] = useState(structuredClone(service));
+    const [defaultService, setDefaultService] = useState(structuredClone(service));
     
     const [isChanged, setIsChanged] = useState(false);
 
     useEffect(() => {
-        setIsChanged(JSON.stringify(currentService)!==JSON.stringify(service))
-    }, [currentService])
+        setIsChanged(JSON.stringify(currentService)!==JSON.stringify(defaultService))
+    }, [currentService, defaultService])
 
     let positionMap = ["left", "middle", "right"]
 
-    return <div className={`serviceBox ${positionMap[index%3]}`} style={{top: `${3.5+13*(Math.floor(index/3))}em`}}>
+    function Delete(id: string) {
+        async function run(id: string) {
+            try {
+                await Services.delete(id);
+                alertService.alert("Service Deleted", "Service Deleted");
+            } catch (e) {
+                alertService.fail("Service Not Deleted", axiosService.errorToString(e as AxiosError))
+            }
+        }
+
+        alertService.confirm("Delete", "Confirm Deletion of Service", () => run(id));
+    }
+
+    function modify(id: string, props: ServiceWithoutID) {
+        async function run(id: string, props: ServiceWithoutID) {
+            try {
+                await Services.modify(id, props);
+                ToastsStore.success("Service Modified");
+                setDefaultService(currentService);
+            } catch (e) {
+                alertService.fail("Service Not Modified", axiosService.errorToString(e as AxiosError))
+            }
+        }
+        run(id, props)
+    }
+
+    return <div className={`serviceBox ${positionMap[index%3]}`} style={{top: `${3.5+15*(Math.floor(index/3))}em`}}>
         <b>{service.name}</b> (ID: {service.id}) <br />
         <br />
         <table>
@@ -42,12 +71,67 @@ const ServiceElement = ({service, index}: {service: Service, index: number}) => 
                 </select>
             </td>
         </tr>
+        <tr>
+            <td></td>
+            <td><button onClick={() => Delete(service.id)}>Delete</button></td>
+        </tr>
         </tbody>
         </table>
         <br />
-        <button className={`saveBtn ${isChanged ? "" : "disabled"}`}>Save</button>
+        <button className={`saveBtn ${isChanged ? "" : "disabled"}`} onClick={() => modify(service.id, currentService as ServiceWithoutID)}>Save</button>
     </div>
 }
+
+const CreateService = ({} : {}) => {
+
+    const [currentService, setCurrentService] = useState({} as ServiceWithoutID);
+
+    async function Create(service: ServiceWithoutID) {
+        try {
+            await Services.create(service);
+            ToastsStore.success("Service Created");
+        } catch (e) {
+            axiosService.errorToString(e as AxiosError);
+        }
+
+    }
+
+    return <div className={`serviceBox createService`} style={{top: `3.5em`}}>
+        <b>Create Service</b><br />
+        <br />
+        <table>
+        <tbody>
+        <tr>
+            <td>Name</td>
+            <td><input onChange={(e) => setCurrentService({...currentService, name: e.target.value})}/></td>
+        </tr>
+        <tr>
+            <td>Description</td>
+            <td><input onChange={(e) => setCurrentService({...currentService, description: e.target.value})}/></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><input onChange={(e) => setCurrentService({...currentService, price: parseInt(e.target.value)})} type="number" /></td>
+        </tr>
+        <tr>
+            <td>Rate</td>
+            <td>
+                <select onChange={(e) => setCurrentService({...currentService, rate: e.target.value})}>
+                    <option value="hourly">Hourly</option>
+                    <option value="fixed">Fixed</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><button className="largeButton" onClick={() => Create(currentService)}>Create</button></td>
+        </tr>
+        </tbody>
+        </table>
+        <br />
+    </div>
+}
+
 
 export default function ServicesPage() {
 
@@ -106,7 +190,7 @@ export default function ServicesPage() {
 
         <input className="searchBox" placeholder="Search..." onChange={(e) => setSearchString(e.target.value)}/>
         <br />
-        {/* <CreateUser /> */}
+        <CreateService />
         {servicesHTML}
     </div>
 

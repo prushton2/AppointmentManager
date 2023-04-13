@@ -93,16 +93,16 @@ export const Users = {
 }
 
 export const Services = {
-    create: async(name, price, description) => {
-        const url = `${process.env.REACT_APP_BACKEND_URL}/services/delete`;
-        const body = {name: name, price: price, description: description};
+    create: async(JSON) => {
+        const url = `${process.env.REACT_APP_BACKEND_URL}/services/create`;
+        const body = {JSON: JSON};
 
         const response = await axios.post(url, body, cookieConfig);
         return response.data;
     },
-    modify: async(id, prop, value) => {
+    modify: async(id, newJSON) => {
         const url = `${process.env.REACT_APP_BACKEND_URL}/services/modify`;
-        const body = {id: id, prop: prop, value: value};
+        const body = {id: id, newJSON: newJSON};
 
         const response = await axios.patch(url, body, cookieConfig);
         return response.data;
