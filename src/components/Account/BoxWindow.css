@@ -1,26 +1,12 @@
-.userBox {
+.box {
     position: relative;
     align-items: center;
-    margin: auto;
-    margin-top: 20px;
+    /* margin: auto; */
+    /* margin-top: 20px; */
     text-align: left;
     width: fit-content;
     padding: 10px;
     background-color: var(--box_bg);
-}
-
-.userBox.left {
-    position: absolute;
-    left: 2.5%;
-}
-.userBox.right {
-    position: absolute;
-    left: 35.5%;
-}
-
-.userBox.createUser {
-    position: absolute;
-    left: 68.5%;
 }
 
 table td {

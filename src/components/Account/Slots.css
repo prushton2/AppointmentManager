@@ -17,17 +17,3 @@
     position: absolute;
     left: 35.5%;
 }
-
-.userBox.createUser {
-    position: absolute;
-    left: 68.5%;
-}
-
-table td {
-    vertical-align: top;
-}
-
-textarea {
-    width: 15em;
-    height: 10em;
-}
